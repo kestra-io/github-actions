@@ -1,0 +1,16 @@
+FROM r-base
+LABEL org.opencontainers.image.source=https://github.com/kestra-io/examples
+LABEL org.opencontainers.image.description="Image with the common R libraries"
+RUN R -e "install.packages('dplyr')"
+RUN R -e "install.packages('arrow')"
+RUN R -e "install.packages('tidyverse')"
+RUN R -e "install.packages('tidyr')"
+RUN R -e "install.packages('sqldf')"
+RUN R -e "install.packages('readr')"
+RUN R -e "install.packages('readxl')"
+RUN R -e "install.packages('writexl')"
+RUN R -e "install.packages('lubridate')"
+RUN R -e "install.packages('stringr')"
+RUN R -e "install.packages('gapminder')"
+RUN R -e "install.packages('jsonlite')"
+RUN R -e "install.packages('data.table')"
