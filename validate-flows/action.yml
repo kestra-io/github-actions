@@ -1,0 +1,45 @@
+name: 'Kestra Validate Flows Action'
+description: 'Validate a list of Flows from a folder recursively'
+branding:
+  icon: 'upload-cloud'
+  color: 'blue'
+inputs:
+  directory:
+    description: 'Folder containing your resources'
+    default: './'
+  server:
+    description: 'URL of your Kestra server'
+    required: true
+  apiToken:
+    description: 'API Token (EE only)'
+    required: false
+  user:
+    description: 'basic auth username'
+    required: false
+  password:
+    description: 'basic auth password'
+    required: false
+  tenant:
+    description: 'Tenant identifier (EE only, when multi-tenancy is enabled)'
+    default: "main"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Install CLI
+      shell: bash
+      # TODO obviously this is overkill here, but later it will located be elsewhere
+      run: |
+        curl -L -o kestractl https://github.com/kestra-io/deploy-action/raw/refs/heads/v2-with-cli/kestractl
+        chmod +x kestractl
+
+    - name: Run CLI
+      shell: bash
+      run: |
+        OPTS=""
+        if [ -n "${{inputs.apiToken}}" ]; then
+          OPTS="$OPTS --token ${{inputs.apiToken}}"
+        elif [ -n "${{inputs.user}}" ] && [ -n "${{inputs.password}}" ]; then
+          OPTS="$OPTS --user ${{inputs.user}} --password ${{inputs.password}}"
+        fi
+        ./kestractl flows validate ${{inputs.directory}} --host ${{inputs.server}} --tenant ${{inputs.tenant}} $OPTS

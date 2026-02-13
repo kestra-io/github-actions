@@ -1,0 +1,60 @@
+name: 'Kestra Deploy Namespace Files Action'
+description: 'Deploy Namespace Files from a folder'
+branding:
+  icon: 'upload-cloud'
+  color: 'blue'
+inputs:
+  localPath:
+    description: 'path to your file or directory containing your files'
+    default: './'
+  namespacePath:
+    description: 'remote Namespace path to deploy your files to (if localPath is a file, then namespacePath should be a file too)'
+    required: true
+  namespace:
+    description: 'Namespace to deploy files to'
+    required: true
+  override:
+    description: 'to override files if they already exist or not'
+    default: 'false'
+  server:
+    description: 'URL of your Kestra server'
+    required: true
+  apiToken:
+    description: 'API Token (EE only)'
+    required: false
+  user:
+    description: 'basic auth username'
+    required: false
+  password:
+    description: 'basic auth password'
+    required: false
+  tenant:
+    description: 'Tenant identifier (EE only, when multi-tenancy is enabled)'
+    default: "main"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Install CLI
+      shell: bash
+      # TODO obviously this is overkill here, but later it will located be elsewhere
+      run: |
+        curl -L -o kestractl https://github.com/kestra-io/deploy-action/raw/refs/heads/v2-with-cli/kestractl
+        chmod +x kestractl
+
+    - name: Run CLI
+      shell: bash
+      run: |
+        OPTS=""
+        if [ -n "${{inputs.namespacePath}}" ]; then
+          OPTS="$OPTS --path ${{inputs.namespacePath}}"
+        fi
+        if [ "${{inputs.override}}" = "true" ]; then
+          OPTS="$OPTS --override"
+        fi
+        if [ -n "${{inputs.apiToken}}" ]; then
+          OPTS="$OPTS --token ${{inputs.apiToken}}"
+        elif [ -n "${{inputs.user}}" ] && [ -n "${{inputs.password}}" ]; then
+          OPTS="$OPTS --user ${{inputs.user}} --password ${{inputs.password}}"
+        fi
+        ./kestractl nsfiles upload ${{inputs.namespace}} ${{inputs.localPath}} --host ${{inputs.server}} --tenant ${{inputs.tenant}} $OPTS

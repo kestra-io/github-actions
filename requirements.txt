@@ -1,4 +1,0 @@
-kestra
-faker
-pandas
-requests
