@@ -57,4 +57,4 @@ runs:
         elif [ -n "${{inputs.user}}" ] && [ -n "${{inputs.password}}" ]; then
           OPTS="$OPTS --user ${{inputs.user}} --password ${{inputs.password}}"
         fi
-        ./kestractl nsfiles upload ${{inputs.namespace}} ${{inputs.localPath}} --host ${{inputs.server}} --tenant ${{inputs.tenant}} $OPTS
+        ./kestractl nsfiles upload ${{inputs.namespace}} ${{inputs.localPath}} ${{inputs.namespacePath}} --host ${{inputs.server}} --tenant ${{inputs.tenant}} $OPTS
