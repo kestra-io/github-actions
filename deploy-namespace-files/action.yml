@@ -46,9 +46,6 @@ runs:
       shell: bash
       run: |
         OPTS=""
-        if [ -n "${{inputs.namespacePath}}" ]; then
-          OPTS="$OPTS --path ${{inputs.namespacePath}}"
-        fi
         if [ "${{inputs.override}}" = "true" ]; then
           OPTS="$OPTS --override"
         fi
