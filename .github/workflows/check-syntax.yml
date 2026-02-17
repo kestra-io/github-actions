@@ -9,7 +9,6 @@ jobs:
     steps:
       - name: install actionlint
         shell: bash
-        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) 1.7.11
-      - name: run actionlint to check GH action syntax
-        shell: bash
-        run: ${{ steps.get_actionlint.outputs.executable }} -color
+        run: |
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) 1.7.11
+          ./actionlint -color
