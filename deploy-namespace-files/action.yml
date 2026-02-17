@@ -40,7 +40,7 @@ runs:
   steps:
     - name: Install CLI
       shell: bash
-      run: curl -fsSL https://raw.githubusercontent.com/kestra-io/kestractl/main/install-scripts/install.sh | VERSION='${{inputs.kestractlVersion}}' bash
+      run: curl -fsSL https://raw.githubusercontent.com/kestra-io/kestractl/main/install-scripts/install.sh | VERSION='${{inputs.kestractlVersion}}' INSTALL_DIR='./' bash
 
     - name: Run CLI
       shell: bash
