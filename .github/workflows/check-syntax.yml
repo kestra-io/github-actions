@@ -1,0 +1,13 @@
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+jobs:
+  check-syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install actionlint
+        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) v1.7.11
+      - name: run actionlint to check GH action syntax
+        run: actionlint
