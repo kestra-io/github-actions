@@ -23,15 +23,15 @@ inputs:
     description: 'Tenant identifier (EE only, when multi-tenancy is enabled)'
     default: "main"
     required: true
+  kestractlVersion:
+    description: "version of kestractl (see https://github.com/kestra-io/kestractl)"
+    default: '1.0.0-alpha.5'
 runs:
   using: "composite"
   steps:
     - name: Install CLI
       shell: bash
-      # TODO obviously this is overkill here, but later it will located be elsewhere
-      run: |
-        curl -L -o kestractl https://github.com/kestra-io/deploy-action/raw/refs/heads/v2-with-cli/kestractl
-        chmod +x kestractl
+      run: curl -fsSL https://raw.githubusercontent.com/kestra-io/kestractl/main/install-scripts/install.sh | VERSION='${{inputs.kestractlVersion}}' INSTALL_DIR='./' bash
 
     - name: Run CLI
       shell: bash
