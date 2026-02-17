@@ -34,7 +34,7 @@ runs:
   steps:
     - name: Install CLI
       shell: bash
-      run: curl -fsSL https://raw.githubusercontent.com/kestra-io/kestractl/main/install-scripts/install.sh | bash
+      run: VERSION=1.0.0-alpha.5 curl -fsSL https://raw.githubusercontent.com/kestra-io/kestractl/main/install-scripts/install.sh | bash
 
     - name: Run CLI
       shell: bash
