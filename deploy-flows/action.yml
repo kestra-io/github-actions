@@ -31,7 +31,7 @@ inputs:
     required: true
   kestractlVersion:
     description: "version of kestractl (see https://github.com/kestra-io/kestractl)"
-    default: '1.0.0-alpha.5'
+    default: '1.0.0-alpha.7'
 runs:
   using: "composite"
   steps:
@@ -41,6 +41,9 @@ runs:
 
     - name: Run CLI
       shell: bash
+      env:
+        # indicate in telemetry that kestractl was called from our action
+        KESTRACTL_GITHUB_ACTION: true
       run: |
         OPTS=""
         if [ -n "${{inputs.namespace}}" ]; then
