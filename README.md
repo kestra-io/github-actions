@@ -1,6 +1,6 @@
 # Kestra GitHub Actions
 
-Official GitHub Actions to validate and deploy Kestra flows and namespace files as part of your CI/CD pipeline.
+Official GitHub Actions to validate and deploy Kestra [Flows](https://kestra.io/docs/workflow-components/flow) and [Namespace Files](https://kestra.io/docs/concepts/namespace-files) as part of your [CI/CD pipeline](https://kestra.io/docs/version-control-cicd/cicd/github-action).
 
 ## Available actions
 - `kestra-io/github-actions/validate-flows` – validate flows in a folder before deploying.
