@@ -46,7 +46,7 @@ runs:
       shell: bash
       env:
         # indicate in telemetry that kestractl was called from our action
-        KESTRACTL_GITHUB_ACTION: true
+        KESTRACTL_GITHUB_ACTION: "true"
       run: |
         OPTS=""
         if [ "${{inputs.override}}" = "true" ]; then
