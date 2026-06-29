@@ -1,0 +1,41 @@
+name: Check syntax
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  check-syntax:
+    name: Lint workflows and validate actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Lint the repository's own workflow files (expressions, job graph,
+      # and shellcheck on `run:` steps). actionlint only understands
+      # workflows, not composite action.yml files — those are handled below.
+      - name: Lint workflows (actionlint)
+        shell: bash
+        run: |
+          bash <(curl -sSf https://raw.githubusercontent.com/rhysd/actionlint/v1.7.12/scripts/download-actionlint.bash) 1.7.12
+          ./actionlint -color
+
+      # Validate the composite action definitions against the official
+      # GitHub Actions metadata schema. This is the repo's actual product,
+      # and is what actionlint cannot check.
+      - name: Validate composite actions (action-validator)
+        shell: bash
+        run: |
+          status=0
+          for action in */action.yml; do
+            echo "::group::Validating $action"
+            npx --yes @action-validator/cli@0.6.0 "$action" || status=1
+            echo "::endgroup::"
+          done
+          exit $status
