@@ -30,8 +30,8 @@ inputs:
     default: "main"
     required: true
   kestractlVersion:
-    description: "version of kestractl (see https://github.com/kestra-io/kestractl)"
-    default: '1.0.0'
+    description: "version of kestractl (see https://github.com/kestra-io/kestractl). Defaults to the latest release; pin a version for reproducible builds."
+    default: 'latest'
 runs:
   using: "composite"
   steps:
