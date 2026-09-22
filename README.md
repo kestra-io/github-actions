@@ -1,3 +1,12 @@
+# Legacy
+
+This repository is deprecated. Each action has been split into its own repository so it can be published standalone on the GitHub Marketplace:
+- [`kestra-io/validate-flows-action-v2`](https://github.com/kestra-io/validate-flows-action-v2)
+- [`kestra-io/deploy-flows-action-v2`](https://github.com/kestra-io/deploy-flows-action-v2)
+- [`kestra-io/deploy-namespace-files-action`](https://github.com/kestra-io/deploy-namespace-files-action)
+
+Please use those actions instead.
+
 # Kestra GitHub Actions
 
 Official GitHub Actions to validate and deploy Kestra [Flows](https://kestra.io/docs/workflow-components/flow) and [Namespace Files](https://kestra.io/docs/concepts/namespace-files) as part of your [CI/CD pipeline](https://kestra.io/docs/version-control-cicd/cicd/github-action).
